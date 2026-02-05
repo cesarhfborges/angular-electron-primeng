@@ -9,6 +9,14 @@ import {appRoutes} from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    // provideTranslateService({
+    //   loader: provideTranslateHttpLoader({
+    //     prefix: './assets/i18n/',
+    //     suffix: '.json'
+    //   }),
+    //   fallbackLang: 'en',
+    //   lang: 'en'
+    // }),
     provideRouter(
       appRoutes,
       withInMemoryScrolling({
