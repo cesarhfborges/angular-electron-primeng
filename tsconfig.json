@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "outDir": "./dist",
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -16,17 +17,28 @@
     "target": "ES2022",
     "module": "ES2022",
     "baseUrl": "./",
+    "allowJs": true,
     "paths": {
       "@/*": [
         "src/*"
       ]
-    }
+    },
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "fullTemplateTypeCheck": true,
+    "annotateForClosureCompiler": true,
+    "skipTemplateCodegen": false,
+    "preserveWhitespaces": true,
+    "skipMetadataEmit": false,
+    "disableTypeScriptVersionCheck": true
   },
   "files": [],
   "references": [
