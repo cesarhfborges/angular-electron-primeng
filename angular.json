@@ -41,7 +41,7 @@
             "styles": [
               "src/assets/styles.scss",
               "src/assets/tailwind.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
