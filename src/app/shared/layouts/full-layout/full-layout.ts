@@ -14,18 +14,6 @@ import {NgClass} from '@angular/common';
 })
 export class FullLayout {
   layoutService = inject(LayoutService);
-
-  constructor() {
-    effect(() => {
-      const state = this.layoutService.layoutState();
-      if (state.mobileMenuActive) {
-        document.body.classList.add('blocked-scroll');
-      } else {
-        document.body.classList.remove('blocked-scroll');
-      }
-    });
-  }
-
   containerClass = computed(() => {
     const config = this.layoutService.layoutConfig();
     const state = this.layoutService.layoutState();
@@ -37,4 +25,15 @@ export class FullLayout {
       'layout-mobile-active': state.mobileMenuActive
     };
   })
+
+  constructor() {
+    effect(() => {
+      const state = this.layoutService.layoutState();
+      if (state.mobileMenuActive) {
+        document.body.classList.add('blocked-scroll');
+      } else {
+        document.body.classList.remove('blocked-scroll');
+      }
+    });
+  }
 }
