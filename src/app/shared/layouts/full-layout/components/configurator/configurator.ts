@@ -1,4 +1,4 @@
-import {Component, computed, inject, PLATFORM_ID, signal} from '@angular/core';
+import {Component, computed, inject, OnInit, PLATFORM_ID, signal} from '@angular/core';
 import {Router} from '@angular/router';
 import {PrimeNG} from 'primeng/config';
 import {LayoutService} from '@/app/shared/services/layout-service';
@@ -18,7 +18,7 @@ const presets = {
 
 declare type KeyOfType<T> = keyof T extends infer U ? U : never;
 
-declare type SurfacesType = {
+interface SurfacesType {
   name?: string;
   palette?: {
     0?: string;
@@ -49,7 +49,7 @@ declare type SurfacesType = {
     class: 'hidden absolute top-13 right-0 w-72 p-4 bg-surface-0 dark:bg-surface-900 border border-surface rounded-border origin-top shadow-[0px_3px_5px_rgba(0,0,0,0.02),0px_0px_2px_rgba(0,0,0,0.05),0px_1px_4px_rgba(0,0,0,0.08)]'
   }
 })
-export class Configurator {
+export class Configurator implements OnInit {
   router = inject(Router);
 
   config: PrimeNG = inject(PrimeNG);
@@ -65,16 +65,9 @@ export class Configurator {
   showMenuModeButton = signal(!this.router.url.includes('auth'));
 
   menuModeOptions = [
-    { label: 'Static', value: 'static' },
-    { label: 'Overlay', value: 'overlay' }
+    {label: 'Static', value: 'static'},
+    {label: 'Overlay', value: 'overlay'}
   ];
-
-  ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.onPresetChange(this.layoutService.layoutConfig().preset);
-    }
-  }
-
   surfaces: SurfacesType[] = [
     {
       name: 'slate',
@@ -213,21 +206,16 @@ export class Configurator {
       }
     }
   ];
-
   selectedPrimaryColor = computed(() => {
     return this.layoutService.layoutConfig().primary;
   });
-
   selectedSurfaceColor = computed(() => this.layoutService.layoutConfig().surface);
-
   selectedPreset = computed(() => this.layoutService.layoutConfig().preset);
-
   menuMode = computed(() => this.layoutService.layoutConfig().menuMode);
-
   primaryColors = computed<SurfacesType[]>(() => {
     const presetPalette = presets[this.layoutService.layoutConfig().preset as KeyOfType<typeof presets>].primitive;
     const colors = ['emerald', 'green', 'lime', 'orange', 'amber', 'yellow', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose'];
-    const palettes: SurfacesType[] = [{ name: 'noir', palette: {} }];
+    const palettes: SurfacesType[] = [{name: 'noir', palette: {}}];
 
     colors.forEach((color) => {
       palettes.push({
@@ -238,6 +226,12 @@ export class Configurator {
 
     return palettes;
   });
+
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.onPresetChange(this.layoutService.layoutConfig().preset);
+    }
+  }
 
   getPresetExt() {
     const color: SurfacesType = this.primaryColors().find((c) => c.name === this.selectedPrimaryColor()) || {};
@@ -370,9 +364,9 @@ export class Configurator {
 
   updateColors(event: any, type: string, color: any) {
     if (type === 'primary') {
-      this.layoutService.layoutConfig.update((state) => ({ ...state, primary: color.name }));
+      this.layoutService.layoutConfig.update((state) => ({...state, primary: color.name}));
     } else if (type === 'surface') {
-      this.layoutService.layoutConfig.update((state) => ({ ...state, surface: color.name }));
+      this.layoutService.layoutConfig.update((state) => ({...state, surface: color.name}));
     }
     this.applyTheme(type, color);
 
@@ -388,13 +382,13 @@ export class Configurator {
   }
 
   onPresetChange(event: any) {
-    this.layoutService.layoutConfig.update((state) => ({ ...state, preset: event }));
+    this.layoutService.layoutConfig.update((state) => ({...state, preset: event}));
     const preset = presets[event as KeyOfType<typeof presets>];
     const surfacePalette = this.surfaces.find((s) => s.name === this.selectedSurfaceColor())?.palette;
-    $t().preset(preset).preset(this.getPresetExt()).surfacePalette(surfacePalette).use({ useDefaultOptions: true });
+    $t().preset(preset).preset(this.getPresetExt()).surfacePalette(surfacePalette).use({useDefaultOptions: true});
   }
 
   onMenuModeChange(event: string) {
-    this.layoutService.layoutConfig.update((prev) => ({ ...prev, menuMode: event }));
+    this.layoutService.layoutConfig.update((prev) => ({...prev, menuMode: event}));
   }
 }

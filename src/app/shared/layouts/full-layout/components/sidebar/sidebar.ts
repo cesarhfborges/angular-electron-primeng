@@ -1,4 +1,4 @@
-import {Component, effect, ElementRef, inject} from '@angular/core';
+import {Component, effect, ElementRef, inject, OnDestroy, OnInit} from '@angular/core';
 import {LayoutService} from '@/app/shared/services/layout-service';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter, Subject, takeUntil} from 'rxjs';
@@ -12,7 +12,7 @@ import {Menu} from '@/app/shared/layouts/full-layout/components/menu/menu';
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })
-export class Sidebar {
+export class Sidebar implements OnInit, OnDestroy {
   layoutService = inject(LayoutService);
 
   router = inject(Router);

@@ -1,4 +1,4 @@
-import {Component, computed, inject, input, signal} from '@angular/core';
+import {AfterViewInit, Component, computed, inject, input, OnInit, signal} from '@angular/core';
 import {NavigationEnd, Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {LayoutService} from '@/app/shared/services/layout-service';
 import {filter} from 'rxjs';
@@ -20,7 +20,7 @@ import {NgClass} from '@angular/common';
     '[class.layout-root-menuitem]': 'root()'
   },
 })
-export class MenuItem {
+export class MenuItem implements OnInit, AfterViewInit {
   layoutService = inject(LayoutService);
 
   router = inject(Router);
@@ -108,7 +108,7 @@ export class MenuItem {
     }
 
     if (item?.command) {
-      item.command({ originalEvent: event, item: item });
+      item.command({originalEvent: event, item: item});
     }
 
     if (this.hasChildren()) {
