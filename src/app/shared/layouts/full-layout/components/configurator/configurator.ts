@@ -34,7 +34,7 @@ interface SurfacesType {
     900?: string;
     950?: string;
   };
-};
+}
 
 @Component({
   selector: 'app-configurator',
@@ -362,18 +362,18 @@ export class Configurator implements OnInit {
     }
   }
 
-  updateColors(event: any, type: string, color: any) {
+  updateColors(event: PointerEvent, type: string, color: SurfacesType) {
     if (type === 'primary') {
-      this.layoutService.layoutConfig.update((state) => ({...state, primary: color.name}));
+      this.layoutService.layoutConfig.update((state) => ({...state, primary: color.name!}));
     } else if (type === 'surface') {
-      this.layoutService.layoutConfig.update((state) => ({...state, surface: color.name}));
+      this.layoutService.layoutConfig.update((state) => ({...state, surface: color.name!}));
     }
     this.applyTheme(type, color);
 
     event.stopPropagation();
   }
 
-  applyTheme(type: string, color: any) {
+  applyTheme(type: string, color: SurfacesType) {
     if (type === 'primary') {
       updatePreset(this.getPresetExt());
     } else if (type === 'surface') {
