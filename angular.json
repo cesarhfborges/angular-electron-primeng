@@ -78,7 +78,7 @@
               "sourceMap": true,
               "namedChunks": false,
               "aot": false,
-              "extractLicenses": true,
+              "extractLicenses": true
             },
             "testing": {
               "polyfills": [

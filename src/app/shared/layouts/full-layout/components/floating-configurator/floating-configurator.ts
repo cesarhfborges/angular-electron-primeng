@@ -3,6 +3,7 @@ import {LayoutService} from '@/app/shared/services/layout-service';
 import {CommonModule} from '@angular/common';
 import {Button} from 'primeng/button';
 import {StyleClass} from 'primeng/styleclass';
+import {Configurator} from '@/app/shared/layouts/full-layout/components/configurator/configurator';
 
 @Component({
   selector: 'app-floating-configurator',
@@ -10,6 +11,7 @@ import {StyleClass} from 'primeng/styleclass';
     CommonModule,
     Button,
     StyleClass,
+    Configurator,
   ],
   templateUrl: './floating-configurator.html',
   styleUrl: './floating-configurator.scss',
