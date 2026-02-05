@@ -5,6 +5,11 @@
     "packageManager": "npm"
   },
   "newProjectRoot": "projects",
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
   "projects": {
     "angular-electron-primeng": {
       "projectType": "application",
@@ -23,6 +28,8 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "dist",
+            "index": "src/index.html",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -32,8 +39,11 @@
               }
             ],
             "styles": [
+              "src/assets/styles.scss",
+              "src/assets/tailwind.css",
               "src/styles.css"
-            ]
+            ],
+            "scripts": []
           },
           "configurations": {
             "production": {
